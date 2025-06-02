@@ -55,10 +55,13 @@ jobs:
         run: |
           aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${{ secrets.AWS_ECR_PRIVATE_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com
 
+      - name: Create Short SHA
+        run: echo "Short_SHA=${GITHUB_SHA::7}" >> $GITHUB_ENV
+
       - name: Build Docker image
         run: |
-          docker build -t ${{ secrets.AWS_ECR_PRIVATE_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${{ secrets.AWS_ECR_PRIVATE_REPOSITORY }}:${{ github.sha }} .
+          docker build -t ${{ secrets.AWS_ECR_PRIVATE_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${{ secrets.AWS_ECR_PRIVATE_REPOSITORY }}:${{ Short_SHA }} .
 
       - name: Push Docker image to Amazon ECR
         run: |
-          docker push ${{ secrets.AWS_ECR_PRIVATE_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${{ secrets.AWS_ECR_PRIVATE_REPOSITORY }}:${{ github.sha }}
+          docker push ${{ secrets.AWS_ECR_PRIVATE_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${{ secrets.AWS_ECR_PRIVATE_REPOSITORY }}:${{ Short_SHA }}
