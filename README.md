@@ -1,1 +1,1 @@
-# app-with-compose-actions
+# app-with-actions
