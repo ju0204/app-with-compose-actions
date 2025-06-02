@@ -18,9 +18,9 @@ jobs:
     - name: Make application-prod.properties
       run: |
         mkdir ./src/main/resources
-        cd ./src/main/resources
+        cd ./home/ubuntu/src/main/resources
         touch ./application.properties
-        echo "${{ secrets.PROPERTIES }}" > ./src/main/resources/application.properties
+        echo "${{ secrets.PROPERTIES }}" > ./home/ubuntu/src/main/resources/application.properties
       shell: bash
       
     - name: Build with Maven
