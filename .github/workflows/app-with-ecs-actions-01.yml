@@ -1,9 +1,9 @@
 name: User source Deploy to Amazon ECR & ECS
 on:
-  workflow_dispatch
- # push:
-  #  branches:
-  #    - main
+#  workflow_dispatch
+  push:
+    branches:
+      - main
 env:
   AWS_REGION: ${{ secrets.AWS_REGION }}
   ECR_REPOSITORY: ${{ secrets.AWS_ECR_PRIVATE_REPOSITORY }}
@@ -71,7 +71,7 @@ jobs:
         id: retrieve-task-def
         run: |
           aws ecs describe-task-definition \
-          --task-definition task-definition \
+          --task-definition task-definition-fargate \
           --query taskDefinition > task-definition.json
           echo "task-def-file=task-definition.json" >> $GITHUB_OUTPUT
 
