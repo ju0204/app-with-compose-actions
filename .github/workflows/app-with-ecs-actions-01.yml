@@ -70,9 +70,12 @@ jobs:
       - name: ECS task definition JSON file
         id: retrieve-task-def
         run: |
+          # aws ecs describe-task-definition \
+          # --task-definition task-definition-fargate \
+          # --query taskDefinition > task-definition.json
           aws ecs describe-task-definition \
           --task-definition task-definition-fargate \
-          --query taskDefinition > task-definition.json
+          > task-definition.json
           echo "task-def-file=task-definition.json" >> $GITHUB_OUTPUT
 
       - name: Fill in the new image ID in the Amazon ECS task definition
