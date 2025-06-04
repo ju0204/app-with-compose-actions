@@ -1,6 +1,5 @@
 name: User source Deploy to Amazon ECR & ECS
 on:
-#  workflow_dispatch
   push:
     branches:
       - main
@@ -35,7 +34,7 @@ jobs:
         shell: bash
         
       - name: Build with Maven
-        run: mvn -B package -DskipTests --file pom.xml
+        run: mvn -B package --file pom.xml
         
       - name: Naming jar file
         run: mv ./target/*.jar ./target/app.jar
@@ -70,12 +69,9 @@ jobs:
       - name: ECS task definition JSON file
         id: retrieve-task-def
         run: |
-          # aws ecs describe-task-definition \
-          # --task-definition task-definition-fargate \
-          # --query taskDefinition > task-definition.json
           aws ecs describe-task-definition \
-          --task-definition task-definition-fargate \
-          > task-definition.json
+          --task-definition task-definition \
+          --query taskDefinition > task-definition.json
           echo "task-def-file=task-definition.json" >> $GITHUB_OUTPUT
 
       - name: Fill in the new image ID in the Amazon ECS task definition
