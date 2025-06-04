@@ -14,6 +14,12 @@ public class ActionsController {
 	public String actionsTest() {
 		return "app-with-actions version:0.0.4";
 	}
+
+	@GetMapping("/")
+	public String health() {
+   	 return "I'm alive!";
+	}
+
 	
 	@GetMapping("/db-test")
 	public String dbTest() {
