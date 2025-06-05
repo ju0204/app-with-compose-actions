@@ -15,7 +15,7 @@ public class ActionsController {
 		return "app-with-actions version:0.0.4";
 	}
 
-	@GetMapping("/")
+	@GetMapping("/health")
 	public String health() {
    	 return "I'm alive!";
 	}
