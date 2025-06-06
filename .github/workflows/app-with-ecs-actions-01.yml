@@ -1,8 +1,9 @@
 name: User source Deploy to Amazon ECR & ECS
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch
+  # push:
+  #   branches:
+  #     - main
 env:
   AWS_REGION: ${{ secrets.AWS_REGION }}
   ECR_REPOSITORY: ${{ secrets.AWS_ECR_PRIVATE_REPOSITORY }}
